@@ -31,6 +31,7 @@ class PortForward extends Model {
     public StringField $descr;
     public StringField $natreflection;
     public StringField $associated_rule_id;
+    public StringField $filter_rule_association;
     public UnixTimeField $created_time;
     public StringField $created_by;
     public UnixTimeField $updated_time;
@@ -132,6 +133,17 @@ class PortForward extends Model {
                 'port forward rule without the need for a firewall rule. Use an empty string to require a separate ' .
                 'firewall rule to be created to pass traffic matching this port forward rule.' .
                 'Use `new` to create rule associated with this port forward',
+        );
+        $this->filter_rule_association = new StringField(
+            default: '',
+            choices: ['', 'add-associated', 'add-unassociated', 'pass'],
+            allow_empty: true,
+            internal_name: 'filter-rule-association',
+            help_text: 'The associated firewall rule mode. Use `pass` to automatically pass traffic matching this ' .
+                'port forward rule without the need for a firewall rule. Use an empty string to require a separate ' .
+                'firewall rule to be created to pass traffic matching this port forward rule.' .
+                'Use `add-associated` to create rule associated with this port forward' . 
+                'Use `add-unassociated` to create rule unassociated with this port forward',
         );
         $this->created_time = new UnixTimeField(
             editable: false,
