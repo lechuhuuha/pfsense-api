@@ -37,6 +37,7 @@ class PortForward extends Model {
     public UnixTimeField $updated_time;
     public StringField $updated_by;
     public StringField $save;
+    public StringField $after;
     public function __construct(mixed $id = null, mixed $parent_id = null, mixed $data = [], mixed ...$options) {
         # Set model attributes
         $this->config_path = 'nat/rule';
@@ -151,6 +152,13 @@ class PortForward extends Model {
             allow_empty: true,
             internal_name: 'save',
             help_text: 'Save this port forward',
+        );
+        $this->after = new StringField(
+            default: '',
+            choices: [''],
+            allow_empty: true,
+            internal_name: 'after',
+            help_text: 'after this port forward',
         );
         $this->created_time = new UnixTimeField(
             editable: false,
