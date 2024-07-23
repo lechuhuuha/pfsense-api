@@ -36,7 +36,7 @@ class PortForward extends Model {
     public StringField $created_by;
     public UnixTimeField $updated_time;
     public StringField $updated_by;
-
+    public StringField $save;
     public function __construct(mixed $id = null, mixed $parent_id = null, mixed $data = [], mixed ...$options) {
         # Set model attributes
         $this->config_path = 'nat/rule';
@@ -144,6 +144,13 @@ class PortForward extends Model {
                 'firewall rule to be created to pass traffic matching this port forward rule.' .
                 'Use `add-associated` to create rule associated with this port forward' . 
                 'Use `add-unassociated` to create rule unassociated with this port forward',
+        );
+        $this->save = new StringField(
+            default: 'Save',
+            choices: ['Save'],
+            allow_empty: true,
+            internal_name: 'save',
+            help_text: 'Save this port forward',
         );
         $this->created_time = new UnixTimeField(
             editable: false,
