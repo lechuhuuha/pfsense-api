@@ -49,6 +49,7 @@ class FirewallRule extends Model {
     public BooleanField $quick;
     public StringField $direction;
     public UnixTimeField $tracker;
+    public StringField $associated_rule_id;
     public UnixTimeField $created_time;
     public StringField $created_by;
     public UnixTimeField $updated_time;
@@ -263,6 +264,12 @@ class FirewallRule extends Model {
             read_only: true,
             auto_add_now: true,
             help_text: 'The internal tracking ID for this firewall rule.',
+        );
+        $this->associated_rule_id = new StringField(
+            default: $this->generateRandomString(),
+            allow_empty: true,
+            internal_name: 'associated-rule-id',
+            help_text: 'The associated firewall rule mode.',
         );
         $this->created_time = new UnixTimeField(
             editable: false,
@@ -495,5 +502,16 @@ class FirewallRule extends Model {
         }
 
         return null;
+    }
+
+    private function generateRandomString() {
+        // Generate a random hexadecimal string (16 characters long)
+        $hexPart = bin2hex(random_bytes(8)); // 8 bytes = 16 hex characters
+        
+        // Generate a random decimal string (8 characters long)
+        $decimalPart = random_int(10000000, 99999999); // Ensures an 8-digit number
+        
+        // Combine both parts into the desired format
+        return 'nat_' . $hexPart . '.' . $decimalPart;
     }
 }

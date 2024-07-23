@@ -127,7 +127,6 @@ class PortForward extends Model {
         );
         $this->associated_rule_id = new StringField(
             default: '',
-            choices: ['', 'pass', 'new'],
             allow_empty: true,
             internal_name: 'associated-rule-id',
             help_text: 'The associated firewall rule mode. Use `pass` to automatically pass traffic matching this ' .
