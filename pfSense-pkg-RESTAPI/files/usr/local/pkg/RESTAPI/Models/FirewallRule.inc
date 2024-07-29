@@ -270,7 +270,6 @@ class FirewallRule extends Model {
             allow_empty: true,
             internal_name: 'associated-rule-id',
             help_text: 'The associated firewall rule mode.',
-            editable: false,
         );
         $this->created_time = new UnixTimeField(
             editable: false,
